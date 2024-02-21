@@ -635,16 +635,13 @@ bool Game::CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineSta
 
 void Player::Initialize() 
 {
-	
 	float window_width = (float)GetScreenWidth();
 	x_pos = window_width / 2;
 	std::cout<< "Find Player -X:" << GetScreenWidth() / 2 << "Find Player -Y" << GetScreenHeight() - player_base_height << std::endl;
-
 }
 
 void Player::Update() 
 {
-
 	//Movement
 	direction = 0;
 	if (IsKeyDown(KEY_LEFT))

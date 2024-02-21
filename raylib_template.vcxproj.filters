@@ -24,16 +24,19 @@
     <ClCompile Include="Source\Resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="level.cpp">
+    <ClCompile Include="Source\alien.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="alien.cpp">
+    <ClCompile Include="Source\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="projectile.cpp">
+    <ClCompile Include="Source\projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
+    <ClCompile Include="Source\wall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,16 +47,19 @@
     <ClInclude Include="Source\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="level.h">
+    <ClInclude Include="Source\alien.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
+    <ClInclude Include="Source\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="alien.h">
+    <ClInclude Include="Source\projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="projectile.h">
+    <ClInclude Include="Source\wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

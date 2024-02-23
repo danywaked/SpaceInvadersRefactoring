@@ -29,7 +29,6 @@ bool pointInCircle(Vector2 circlePos, float radius, Vector2 point) // Uses pytha
 	}
 }
 
-
 void Game::Start()
 {
 	// creating walls 
@@ -43,10 +42,7 @@ void Game::Start()
 		newWalls.position.x = wall_distance * (i + 1); 
 
 		Walls.push_back(newWalls); 
-
 	}
-
-
 	//creating player
 	Player newPlayer;
 	player = newPlayer;
@@ -54,7 +50,6 @@ void Game::Start()
 	//creating aliens
 	SpawnAliens();
 	
-
 	//creating background
 	Background newBackground;
 	newBackground.Initialize(600);
@@ -63,7 +58,6 @@ void Game::Start()
 	//reset score
 	score = 0;
 	gameState = State::GAMEPLAY;
-
 }
 
 void Game::End()
@@ -78,7 +72,6 @@ void Game::End()
 
 void Game::Continue()
 {
-	SaveLeaderboard();
 	gameState = State::STARTSCREEN;
 }
 
@@ -133,59 +126,46 @@ void Game::Update()
 		background.Update(offset / 15);
 
 		//UPDATE PROJECTILE
-		for (int i = 0; i < Projectiles.size(); i++)
-		{
-			Projectiles[i].Update();
+		for (auto& p : Projectiles) {
+			p.Update();
 		}
-		//UPDATE PROJECTILE
-		for (int i = 0; i < Walls.size(); i++)
-		{
-			Walls[i].Update();
+		//UPDATE WALLS
+		for (auto& w : Walls) {
+			w.Update();
 		}
 
 		//CHECK ALL COLLISONS HERE
-		for (int i = 0; i < Projectiles.size(); i++)
-		{
-			if (!Projectiles[i].enemyBullet)
+		for (auto& p : Projectiles) {
+			if (!p.enemyBullet)
 			{
-				for (int a = 0; a < Aliens.size(); a++)
-				{
-					if (CheckCollision(Aliens[a].position, Aliens[a].radius, Projectiles[i].lineStart, Projectiles[i].lineEnd))
+				for (auto& a : Aliens) {
+					if (CheckCollision(a.position, a.radius, p.lineStart, p.lineEnd))
 					{
-						// Kill!
-						std::cout << "Hit! \n";
 						// Set them as inactive, will be killed later
-						Projectiles[i].active = false;
-						Aliens[a].active = false;
+						p.active = false;
+						a.active = false;
 						score += 100;
 					}
 				}
 			}
 			//ENEMY PROJECTILES HERE
-			for (int i = 0; i < Projectiles.size(); i++)
-			{
-				if (Projectiles[i].enemyBullet)
+			for (auto& p : Projectiles) {
+				if (p.enemyBullet)
 				{
-					if (CheckCollision({player.x_pos, GetScreenHeight() - player.player_base_height }, player.radius, Projectiles[i].lineStart, Projectiles[i].lineEnd))
+					if (CheckCollision({player.x_pos, GetScreenHeight() - player.player_base_height }, player.radius, p.lineStart, p.lineEnd))
 					{
-						std::cout << "dead!\n"; 
-						Projectiles[i].active = false; 
+						p.active = false; 
 						player.lives -= 1; 
 					}
-
-				}
-			
+				}			
 			}
 
-			for (int b = 0; b < Walls.size(); b++)
-			{
-				if (CheckCollision(Walls[b].position, Walls[b].radius, Projectiles[i].lineStart, Projectiles[i].lineEnd))
+			for (auto& w : Walls) {
+				if (CheckCollision(w.position, w.radius, p.lineStart, p.lineEnd))
 				{
-					// Kill!
-					std::cout << "Hit! \n";
 					// Set them as inactive, will be killed later
-					Projectiles[i].active = false;
-					Walls[b].health -= 1;
+					p.active = false;
+					w.health -= 1;
 				}
 			}
 		}
@@ -222,36 +202,12 @@ void Game::Update()
 		}
 
 		// REMOVE INACTIVE/DEAD ENITITIES
-		for (int i = 0; i < Projectiles.size(); i++)
-		{
-			if (Projectiles[i].active == false)
-			{
-				Projectiles.erase(Projectiles.begin() + i);
-				// Prevent the loop from skipping an instance because of index changes, since all insances after
-				// the killed objects are moved down in index. This is the same for all loops with similar function
-				i--;
-			}
-		}
-		for (int i = 0; i < Aliens.size(); i++)
-		{
-			if (Aliens[i].active == false)
-			{
-				Aliens.erase(Aliens.begin() + i);
-				i--;
-			}
-		}
-		for (int i = 0; i < Walls.size(); i++)
-		{
-			if (Walls[i].active == false)
-			{
-				Walls.erase(Walls.begin() + i);
-				i--;
-			}
-		}
-		
+		std::erase_if(Aliens, [](const auto& alien) {return !alien.active;});
+		std::erase_if(Walls,  [](const auto& wall)  {return !wall.active;});
+		std::erase_if(Projectiles, [](const auto& projectile) {return !projectile.active;});
+			
 		break;
 	case State::ENDSCREEN:
-		//Code
 	
 		//Exit endscreen
 		if (IsKeyReleased(KEY_ENTER) && !newHighScore)
@@ -449,7 +405,6 @@ void Game::InsertNewHighScore(std::string name)
 	{
 		if (newData.score > Leaderboard[i].score)
 		{
-
 			Leaderboard.insert(Leaderboard.begin() + i, newData);
 			Leaderboard.pop_back();
 			i = Leaderboard.size();
@@ -518,5 +473,4 @@ bool Game::CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineSta
 		// Point is not on the line, line is not colliding
 		return false;
 	}
-
 }

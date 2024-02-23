@@ -16,8 +16,8 @@ struct Background
 {
 	std::vector<Star> Stars;
 
-	void Initialize(int starAmount);
-	void Update(float offset);
-	void Render();
+	void Initialize(int starAmount) noexcept;
+	void Update(float offset)noexcept;
+	void Render()noexcept;
 
 };

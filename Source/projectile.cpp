@@ -7,7 +7,6 @@ void Projectile::Update() noexcept{
 	// UPDATE LINE POSITION
 	lineStart.y = position.y - 15;
 	lineEnd.y = position.y + 15;
-
 	lineStart.x = position.x;
 	lineEnd.x = position.x;
 

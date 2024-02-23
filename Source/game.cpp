@@ -23,10 +23,7 @@ bool pointInCircle(Vector2 circlePos, float radius, Vector2 point) // Uses pytha
 	{
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 void Game::Start()
@@ -294,17 +291,14 @@ void Game::Render()
 		DrawText(TextFormat("Score: %i", score), 50, 20, 40, YELLOW);
 		DrawText(TextFormat("Lives: %i", player.lives), 50, 70, 40, YELLOW);
 		player.Render(resources.shipTextures[player.activeTexture]);
-		for (int i = 0; i < Projectiles.size(); i++)
-		{
-			Projectiles[i].Render(resources.laserTexture);
+		for(auto& p : Projectiles){
+				p.Render(resources.laserTexture);
 		}
-		for (int i = 0; i < Walls.size(); i++)
-		{
-			Walls[i].Render(resources.barrierTexture); 
+		for (auto& w : Walls) {
+			w.Render(resources.barrierTexture); 
 		}
-		for (int i = 0; i < Aliens.size(); i++)
-		{
-			Aliens[i].Render(resources.alienTexture);
+		for (auto& a : Aliens) {
+			a.Render(resources.alienTexture);
 		}
 		break;
 

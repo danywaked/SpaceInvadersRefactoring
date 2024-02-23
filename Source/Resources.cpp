@@ -3,7 +3,6 @@
 
 void Resources::Load()
 {
-	std::cout << "Yay"; // yes
 	alienTexture = LoadTexture("./Assets/Alien.png");
 	barrierTexture = LoadTexture("./Assets/Barrier.png");
 	shipTextures.push_back(LoadTexture("./Assets/Ship1.png"));

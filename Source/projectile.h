@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "Resources.h"
 
 class Projectile
 {
@@ -11,5 +12,5 @@ public:
 	int speed = 15;
 	bool enemyBullet = false;
 	void Update() noexcept;
-	void Render(Texture2D texture) const noexcept;
+	void Render(Resource& texture) const noexcept;
 };

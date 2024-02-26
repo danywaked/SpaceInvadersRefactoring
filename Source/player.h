@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "Resources.h"
 
 class Player
 {
@@ -14,7 +15,7 @@ public:
 	float player_base_height = 100;
 	float radius = 50;
 	int lives = 3;
-	void Render(Texture2D texture) const noexcept;
+	void Render(Resource& texture) const noexcept;
 	void Update() noexcept;
 
 };

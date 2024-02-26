@@ -42,7 +42,6 @@ struct Game
 	void Start();
 	void End();
 	void Continue();
-	void Launch();
 	void Update();
 	void Render();
 
@@ -52,7 +51,7 @@ struct Game
 	void InsertNewHighScore(std::string name);
 
 	Background background;
-	Resources resources;
+	ResourceManager resources;
 	Player player;
 
 	std::vector<Projectile> Projectiles;

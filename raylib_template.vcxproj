@@ -169,7 +169,6 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\player.cpp" />
     <ClCompile Include="Source\projectile.cpp" />
-    <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\wall.cpp" />
   </ItemGroup>
   <ItemGroup>

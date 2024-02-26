@@ -1,6 +1,6 @@
 #pragma once
 #include "raylib.h"
-
+#include "Resources.h"
 
 class Alien
 {
@@ -13,5 +13,5 @@ public:
 	float radius = 30;
 
 	void Update() noexcept;
-	void Render(Texture2D texture) const noexcept;
+	void Render(Resource& texture) const noexcept;
 };

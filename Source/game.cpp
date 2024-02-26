@@ -44,15 +44,12 @@ void Game::Start()
 	Player newPlayer;
 	player = newPlayer;
 
-	//creating aliens
 	SpawnAliens();
 	
-	//creating background
 	Background newBackground;
 	newBackground.Initialize(600);
 	background = newBackground;
 
-	//reset score
 	score = 0;
 	gameState = State::GAMEPLAY;
 }
@@ -164,39 +161,17 @@ void Game::Update()
 		//MAKE PROJECTILE
 		if (IsKeyPressed(KEY_SPACE))
 		{
-			float window_height = (float)GetScreenHeight();
-			Projectile newProjectile;
-			newProjectile.position.x = player.x_pos;
-			newProjectile.position.y = window_height - 130;
-			newProjectile.enemyBullet = false;
-			Projectiles.push_back(newProjectile);
+			SpawnPlayerProjectile();
 		}
 
 		//Aliens Shooting
 		shootTimer += 1;
 		if (shootTimer > 59) //once per second
 		{
-			int randomAlienIndex = 0;
-
-			if (Aliens.size() > 1)
-			{
-				randomAlienIndex = rand() % Aliens.size();
-			}
-
-			Projectile newProjectile;
-			newProjectile.position = Aliens[randomAlienIndex].position;
-			newProjectile.position.y += 40;
-			newProjectile.speed = -15;
-			newProjectile.enemyBullet = true;
-			Projectiles.push_back(newProjectile);
-			shootTimer = 0;
+			AlienShooting();
 		}
+		EraseInactiveEntities();
 
-		// REMOVE INACTIVE/DEAD ENITITIES
-		std::erase_if(Aliens, [](const auto& alien) {return !alien.active;});
-		std::erase_if(Walls,  [](const auto& wall)  {return !wall.active;});
-		std::erase_if(Projectiles, [](const auto& projectile) {return !projectile.active;});
-			
 		break;
 	case State::ENDSCREEN:
 	
@@ -358,6 +333,40 @@ void Game::Render()
 		//SHOULD NOT HAPPEN
 		break;
 	}
+}
+
+void Game::SpawnPlayerProjectile()
+{
+	float window_height = (float)GetScreenHeight();
+	Projectile newProjectile;
+	newProjectile.position.x = player.x_pos;
+	newProjectile.position.y = window_height - 130;
+	newProjectile.enemyBullet = false;
+	Projectiles.push_back(newProjectile);
+}
+
+void Game::AlienShooting()
+{
+	int randomAlienIndex = 0;
+	if (Aliens.size() > 1)
+	{
+		randomAlienIndex = rand() % Aliens.size();
+	}
+
+	Projectile newProjectile;
+	newProjectile.position = Aliens[randomAlienIndex].position;
+	newProjectile.position.y += 40;
+	newProjectile.speed = -15;
+	newProjectile.enemyBullet = true;
+	Projectiles.push_back(newProjectile);
+	shootTimer = 0;
+}
+
+void Game::EraseInactiveEntities()
+{
+	std::erase_if(Aliens, [](const auto& alien) {return !alien.active; });
+	std::erase_if(Walls, [](const auto& wall) {return !wall.active; });
+	std::erase_if(Projectiles, [](const auto& projectile) {return !projectile.active; });
 }
 
 void Game::SpawnAliens()

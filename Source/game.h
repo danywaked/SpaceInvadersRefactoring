@@ -28,7 +28,7 @@ struct Game
 	int score;
 	int wallCount = 5;
 
-	//Aliens shooting
+	//for Aliens shooting
 	float shootTimer = 0;
 
 	int formationWidth = 8;
@@ -45,6 +45,9 @@ struct Game
 	void Update();
 	void Render();
 
+	void SpawnPlayerProjectile();
+	void AlienShooting();
+	void EraseInactiveEntities();
 	void SpawnAliens();
 	bool CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineTop, Vector2 lineBottom);
 	bool CheckNewHighScore();

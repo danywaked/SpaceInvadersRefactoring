@@ -36,7 +36,7 @@ struct ResourceManager
 	Resource barrierTexture{ "./Assets/Barrier.png"sv };
 	Resource laserTexture{ "./Assets/Laser.png"sv };
 
-	ResourceManager() {
+	ResourceManager() noexcept{
 		shipTextures.emplace_back("./Assets/Ship1.png"sv);
 		shipTextures.emplace_back("./Assets/Ship2.png"sv);
 		shipTextures.emplace_back("./Assets/Ship3.png"sv);

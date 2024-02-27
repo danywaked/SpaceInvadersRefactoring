@@ -7,9 +7,9 @@ class Wall
 {
 
 public:
-	Vector2 position;
-	Rectangle rec;
-	int radius = 60;
+	Vector2 position{};
+	Rectangle rec{};
+	float radius = 60.0f;
 	
 	bool active;
 	int health = 50;

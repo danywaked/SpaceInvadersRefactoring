@@ -1,4 +1,10 @@
 #pragma once
+#include <codeanalysis\warnings.h>
+#pragma warning(push)
+#pragma warning(disable:ALL_CODE_ANALYSIS_WARNINGS)
+#include "raylib.h"
+#pragma warning(pop)
+
 #include "raylib.h"
 #include "player.h"
 #include "projectile.h"
@@ -19,7 +25,7 @@ enum struct State
 struct PlayerData
 {
 	std::string name;
-	int score;
+	int score = 0;
 };
 
 struct Game
@@ -51,7 +57,7 @@ struct Game
 	void SpawnAliens();
 	bool CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineTop, Vector2 lineBottom);
 	bool CheckNewHighScore();
-	void InsertNewHighScore(std::string name);
+	void InsertNewHighScore(std::string p_name);
 
 	Background background;
 	ResourceManager resources;

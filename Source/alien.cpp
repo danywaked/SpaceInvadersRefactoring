@@ -1,13 +1,13 @@
 #include "alien.h"
 
 void Alien::Update() noexcept {
-	int window_width = GetScreenWidth();
+	const int window_width = GetScreenWidth();
 
 	if (moveRight)
 	{
 		position.x += speed;
 
-		if (position.x >= GetScreenWidth())
+		if (position.x >= window_width)
 		{
 			moveRight = false;
 			position.y += 50;

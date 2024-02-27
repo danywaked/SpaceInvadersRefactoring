@@ -14,8 +14,8 @@ void Background::Initialize(int starAmount) noexcept {
 	for (int i = 0; i < starAmount; i++)
 	{
 		Star newStar;
-		newStar.initPosition.x = GetRandomValue(-150, GetScreenWidth() + 150);
-		newStar.initPosition.y = GetRandomValue(0, GetScreenHeight());
+		newStar.initPosition.x = static_cast<float>(GetRandomValue(-150, GetScreenWidth() + 150));
+		newStar.initPosition.y = static_cast<float>(GetRandomValue(0, GetScreenHeight()));
 		newStar.color = SKYBLUE;
 		newStar.size = static_cast<float>(GetRandomValue(1, 4)) / static_cast<float>(2);
 

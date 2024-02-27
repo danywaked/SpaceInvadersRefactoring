@@ -25,6 +25,6 @@ void Alien::Update() noexcept {
 	}
 }
 
-void Alien::Render(Resource& texture) const noexcept {
+void Alien::Render(const Resource& texture) const noexcept {
 	DrawTextureEx(texture.texture, { position.x - 100.0f, position.y - 100.0f }, 0, 0.3f, WHITE);
 }

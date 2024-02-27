@@ -8,14 +8,14 @@
 
 
 // MATH FUNCTIONS
-float lineLength(Vector2 A, Vector2 B) //Uses pythagoras to calculate the length of a line
+float lineLength(Vector2 A, Vector2 B)noexcept //Uses pythagoras to calculate the length of a line
 {
 	const float length = sqrtf(pow(B.x - A.x, 2.0f) + pow(B.y - A.y, 2.0f));
 
 	return length;
 }
 
-bool pointInCircle(Vector2 circlePos, float radius, Vector2 point) // Uses pythagoras to calculate if a point is within a circle or not
+bool pointInCircle(Vector2 circlePos, float radius, Vector2 point) noexcept // Uses pythagoras to calculate if a point is within a circle or not
 {
 	const float distanceToCentre = lineLength(circlePos, point);
 
@@ -64,7 +64,7 @@ void Game::End()
 	gameState = State::ENDSCREEN;
 }
 
-void Game::Continue()
+void Game::Continue()noexcept
 {
 	gameState = State::STARTSCREEN;
 }
@@ -108,10 +108,10 @@ void Game::Update()
 		}
 
 		// Update background with offset
-		playerPos = { player.x_pos, (float)player.player_base_height };
-		cornerPos = { 0, (float)player.player_base_height };
+		playerPos = { player.x_pos, player.player_base_height };
+		cornerPos = { 0.0f, player.player_base_height };
 		offset = lineLength(playerPos, cornerPos) * -1;
-		background.Update(offset / 15);
+		background.Update(offset / 15.0f);
 
 		//UPDATE PROJECTILE
 		for (auto& p : Projectiles) {
@@ -197,7 +197,7 @@ void Game::Update()
 					// NOTE: Only allow keys in range [32..125]
 					if ((key >= 32) && (key <= 125) && (letterCount < 9))
 					{
-						name[letterCount] = (char)key;
+						name[letterCount] = static_cast<char>(key);
 						name[letterCount + 1] = '\0'; // Add null terminator at the end of the string.
 						letterCount++;
 					}
@@ -242,7 +242,7 @@ void Game::Update()
 	}
 }
 
-void Game::Render()
+void Game::Render() noexcept
 {
 	switch (gameState)
 	{
@@ -279,15 +279,15 @@ void Game::Render()
 			if (mouseOnText)
 			{
 				// HOVER CONFIRMIATION
-				DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
+				DrawRectangleLines(static_cast<int>(textBox.x), static_cast<int>(textBox.y), static_cast<int>(textBox.width), static_cast<int>(textBox.height), RED);
 			}
 			else
 			{
-				DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+				DrawRectangleLines(static_cast<int>(textBox.x), static_cast<int>(textBox.y), static_cast<int>(textBox.width), static_cast<int>(textBox.height), DARKGRAY);
 			}
 
 			//Draw the name being typed out
-			DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
+			DrawText(name, static_cast<int>(textBox.x) + 5, static_cast<int>(textBox.y) + 8, 40, MAROON);
 			//Draw the text explaining how many characters are used
 			DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, 8), 600, 600, 20, YELLOW);
 
@@ -298,7 +298,7 @@ void Game::Render()
 					// Draw blinking underscore char
 					if (((framesCounter / 20) % 2) == 0)
 					{
-						DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
+						DrawText("_", static_cast<int>(textBox.x) + 8 + MeasureText(name, 40), static_cast<int>(textBox.y) + 12, 40, MAROON);
 					}
 				}
 				else
@@ -334,7 +334,7 @@ void Game::Render()
 
 void Game::SpawnPlayerProjectile()
 {
-	const float window_height = (float)GetScreenHeight();
+	const float window_height = static_cast<float>(GetScreenHeight());
 	Projectile newProjectile;
 	newProjectile.position.x = player.x_pos;
 	newProjectile.position.y = window_height - 130;
@@ -366,7 +366,7 @@ void Game::EraseInactiveEntities()
 	std::erase_if(Projectiles, [](const auto& projectile) {return !projectile.active; });
 }
 
-void Game::SpawnAliens()
+void Game::SpawnAliens()noexcept
 {
 	for (int row = 0; row < formationHeight; row++) {
 		for (int col = 0; col < formationWidth; col++) {
@@ -381,7 +381,7 @@ void Game::SpawnAliens()
 	}
 }
 
-bool Game::CheckNewHighScore()
+bool Game::CheckNewHighScore()noexcept
 {
 	if (score > Leaderboard[4].score)
 	{
@@ -407,7 +407,7 @@ void Game::InsertNewHighScore(std::string p_name)
 	}
 }
 
-bool Game::CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineStart, Vector2 lineEnd)
+bool Game::CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineStart, Vector2 lineEnd)noexcept
 {
 	// our objective is to calculate the distance between the closest point on the line to the centre of the circle, 
 	// and determine if it is shorter than the radius.

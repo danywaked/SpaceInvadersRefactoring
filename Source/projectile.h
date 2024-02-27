@@ -12,5 +12,5 @@ public:
 	int speed = 15;
 	bool enemyBullet = false;
 	void Update() noexcept;
-	void Render(Resource& texture) const noexcept;
+	void Render(const Resource& texture) const noexcept;
 };

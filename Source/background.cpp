@@ -1,13 +1,13 @@
 #include "background.h"
 
 
-void Star::Update(float starOffset){
+void Star::Update(float starOffset)noexcept {
 	position.x = initPosition.x + starOffset;
 	position.y = initPosition.y;
 }
 
-void Star::Render(){
-	DrawCircle((int)position.x, (int)position.y, size, color);
+void Star::Render()noexcept{
+	DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), size, color);
 }
 
 void Background::Initialize(int starAmount) noexcept {

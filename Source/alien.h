@@ -13,5 +13,5 @@ public:
 	float radius = 30;
 
 	void Update() noexcept;
-	void Render(Resource& texture) const noexcept;
+	void Render(const Resource& texture) const noexcept;
 };

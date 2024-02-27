@@ -12,6 +12,7 @@ struct Resource
 	explicit Resource(std::string_view path) {
 		texture = LoadTexture(path.data());
 		if (texture.id <= 0) {
+			[[gsl::suppress(bounds.1)]]
 			throw(std::runtime_error(std::format("Unable to load texture: {}"sv, path)));
 		}
 	}
@@ -36,7 +37,8 @@ struct ResourceManager
 	Resource barrierTexture{ "./Assets/Barrier.png"sv };
 	Resource laserTexture{ "./Assets/Laser.png"sv };
 
-	ResourceManager() noexcept{
+	[[gsl::suppress(f.6)]]
+	ResourceManager() {
 		shipTextures.emplace_back("./Assets/Ship1.png"sv);
 		shipTextures.emplace_back("./Assets/Ship2.png"sv);
 		shipTextures.emplace_back("./Assets/Ship3.png"sv);

@@ -14,6 +14,6 @@ public:
 	bool active;
 	int health = 50;
 
-	void Render(Resource& texture) const noexcept;
+	void Render(const Resource& texture) const noexcept;
 	void Update() noexcept;
 };

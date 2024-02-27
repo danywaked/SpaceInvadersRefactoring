@@ -47,16 +47,16 @@ struct Game
 
 	void Start();
 	void End();
-	void Continue();
+	void Continue()noexcept;
 	void Update();
-	void Render();
+	void Render()noexcept;
 
 	void SpawnPlayerProjectile();
 	void AlienShooting();
 	void EraseInactiveEntities();
-	void SpawnAliens();
-	bool CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineTop, Vector2 lineBottom);
-	bool CheckNewHighScore();
+	void SpawnAliens()noexcept;
+	bool CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineTop, Vector2 lineBottom)noexcept;
+	bool CheckNewHighScore()noexcept;
 	void InsertNewHighScore(std::string p_name);
 
 	Background background;

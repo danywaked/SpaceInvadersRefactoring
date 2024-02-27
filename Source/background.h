@@ -8,8 +8,8 @@ struct Star
 	Vector2 position = { 0, 0 };
 	Color color = GRAY;
 	float size = 0;
-	void Update(float starOffset);
-	void Render();
+	void Update(float starOffset)noexcept;
+	void Render()noexcept;
 };
 
 struct Background

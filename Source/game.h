@@ -45,20 +45,21 @@ struct Game
 
 	bool newHighScore = false;
 
-	void Start();
-	void End();
+	void Start()noexcept;
+	void End()noexcept;
 	void Continue()noexcept;
 	void Update();
 	void Render()noexcept;
 
 	void CheckForCollisions() noexcept;
-	void SpawnPlayerProjectile();
-	void AlienShooting();
-	void EraseInactiveEntities();
+	void SpawnPlayerProjectile()noexcept;
+	void AlienShooting()noexcept;
+	void EraseInactiveEntities()noexcept;
+	void SpawnWalls()noexcept;
 	void SpawnAliens()noexcept;
 	bool CheckCollision(Vector2 circlePos, float circleRadius, Vector2 lineTop, Vector2 lineBottom)noexcept;
 	bool CheckNewHighScore()noexcept;
-	void InsertNewHighScore(std::string p_name);
+	void InsertNewHighScore(std::string p_name)noexcept;
 
 	Background background;
 	ResourceManager resources;

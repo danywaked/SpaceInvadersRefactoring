@@ -315,7 +315,7 @@ void Game::CheckForCollisions() noexcept
 		}
 		else //ENEMY PROJECTILES HERE
 		{
-			if (CheckCollision({ player.x_pos, GetScreenHeight() - player.player_base_height }, player.radius, .lineStart, p.lineEnd))
+			if (CheckCollision({ player.x_pos, GetScreenHeight() - player.player_base_height }, player.radius, p.lineStart, p.lineEnd))
 			{
 				p.active = false;
 				player.lives -= 1;

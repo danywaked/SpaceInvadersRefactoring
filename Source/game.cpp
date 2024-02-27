@@ -41,6 +41,7 @@ void Game::Start()
 		Walls.push_back(newWalls); 
 	}
 	//creating player
+	[[gsl::suppress(con.4)]]
 	Player newPlayer;
 	player = newPlayer;
 
@@ -88,15 +89,13 @@ void Game::Update()
 		player.Update();
 		
 		//Update Aliens and Check if they are past player
-		for (int i = 0; i < Aliens.size(); i++)
+	for (auto& a : Aliens) {
+		a.Update(); 
+		if (a.position.y > GetScreenHeight() - player.player_base_height)
 		{
-			Aliens[i].Update(); 
-
-			if (Aliens[i].position.y > GetScreenHeight() - player.player_base_height)
-			{
-				End();
-			}
+			End();
 		}
+	}
 		//End game if player dies
 		if (player.lives < 1)
 		{
@@ -375,15 +374,13 @@ void Game::SpawnAliens()noexcept
 			newAlien.position.x = static_cast<float>(formationX + 450.0f + (col * alienSpacing));
 			newAlien.position.y = static_cast<float>(formationY + (row * alienSpacing));
 			Aliens.push_back(newAlien);
-			std::cout << "Find Alien -X:" << newAlien.position.x << std::endl;
-			std::cout << "Find Alien -Y:" << newAlien.position.y << std::endl;
 		}
 	}
 }
 
 bool Game::CheckNewHighScore()noexcept
 {
-	if (score > Leaderboard[4].score)
+	if (score > Leaderboard.at(4).score)
 	{
 		return true;
 	}

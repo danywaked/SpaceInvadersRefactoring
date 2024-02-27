@@ -51,6 +51,7 @@ struct Game
 	void Update();
 	void Render()noexcept;
 
+	void CheckForCollisions() noexcept;
 	void SpawnPlayerProjectile();
 	void AlienShooting();
 	void EraseInactiveEntities();

@@ -1,10 +1,7 @@
 #include "game.h"
-#include <iostream>
-#include <vector>
-#include <chrono>
-#include <thread>
-#include <fstream>
-#include "player.h"
+//#include <chrono>
+//#include <thread>
+#include "raymath.h"
 
 
 // MATH FUNCTIONS
@@ -122,37 +119,7 @@ void Game::Update()
 		}
 
 		//CHECK ALL COLLISONS HERE
-		for (auto& p : Projectiles) {
-			if (!p.enemyBullet)
-			{
-				for (auto& a : Aliens) {
-					if (CheckCollision(a.position, a.radius, p.lineStart, p.lineEnd))
-					{
-						// Set them as inactive, will be killed later
-						p.active = false;
-						a.active = false;
-						score += 100;
-					}
-				}
-			}
-			else //ENEMY PROJECTILES HERE
-			{
-				if (CheckCollision({ player.x_pos, GetScreenHeight() - player.player_base_height }, player.radius, p.lineStart, p.lineEnd))
-				{
-					p.active = false;
-					player.lives -= 1;
-				}
-			}
-
-			for (auto& w : Walls) {
-				if (CheckCollision(w.position, w.radius, p.lineStart, p.lineEnd))
-				{
-					// Set them as inactive, will be killed later
-					p.active = false;
-					w.health -= 1;
-				}
-			}
-		}
+		CheckForCollisions();
 
 		//MAKE PROJECTILE
 		if (IsKeyPressed(KEY_SPACE))
@@ -328,6 +295,41 @@ void Game::Render() noexcept
 	default:
 		//SHOULD NOT HAPPEN
 		break;
+	}
+}
+
+void Game::CheckForCollisions() noexcept
+{
+	for (auto& p : Projectiles) {
+		if (!p.enemyBullet)
+		{
+			for (auto& a : Aliens) {
+				if (CheckCollision(a.position, a.radius, p.lineStart, p.lineEnd))
+				{
+					// Set them as inactive, will be killed later
+					p.active = false;
+					a.active = false;
+					score += 100;
+				}
+			}
+		}
+		else //ENEMY PROJECTILES HERE
+		{
+			if (CheckCollision({ player.x_pos, GetScreenHeight() - player.player_base_height }, player.radius, .lineStart, p.lineEnd))
+			{
+				p.active = false;
+				player.lives -= 1;
+			}
+		}
+
+		for (auto& w : Walls) {
+			if (CheckCollision(w.position, w.radius, p.lineStart, p.lineEnd))
+			{
+				// Set them as inactive, will be killed later
+				p.active = false;
+				w.health -= 1;
+			}
+		}
 	}
 }
 
